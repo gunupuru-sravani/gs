@@ -1,0 +1,76 @@
+SQL> connect user1
+Enter password:
+Connected.
+SQL> create table emp(eno number(10),ename varchar2(10),designation varchar2(10),salary number(10));
+
+Table created.
+
+SQL> insert into emp values(1,'swetha','architech',20000);
+1 row created.
+SQL> insert into emp values(2,'maggi','lect',25000);
+1 row created.
+SQL> insert into emp values(3,'chaithu','labass',25000);
+
+1 row created.
+
+SQL> select * from emp;
+
+       ENO ENAME      DESIGNATIO     SALARY
+---------- ---------- ---------- ----------
+         1 swetha     architech       20000
+         2 maggi      lect            25000
+         3 chaithu    labass          25000
+
+SQL> grant select,update,delete on emp to user2;
+
+Grant succeeded.
+
+SQL> connect user2;
+Enter password:
+Connected.
+SQL> select * from user1.emp;
+
+       ENO ENAME      DESIGNATIO     SALARY
+---------- ---------- ---------- ----------
+         1 swetha     architech       20000
+         2 maggi      lect            25000
+         3 chaithu    labass          25000
+
+
+SQL> update user1.emp set designation='lectural' where eno=2;
+
+1 row updated.
+
+SQL> select * from user1.emp;
+
+       ENO ENAME      DESIGNATIO     SALARY
+---------- ---------- ---------- ----------
+         1 swetha     architech       20000
+         2 maggi      lectural        25000
+         3 chaithu    labass          25000
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from user1.emp where eno=3;
+
+1 row deleted.
+
+SQL> select * from user1.emp;
+
+       ENO ENAME      DESIGNATIO     SALARY
+---------- ---------- ---------- ----------
+         1 swetha     architech       20000
+         2 maggi      lectural        25000
+
+SQL> connect user1;
+Enter password:
+Connected.
+SQL> select * from emp;
+
+       ENO ENAME      DESIGNATIO     SALARY
+---------- ---------- ---------- ----------
+         1 swetha     architech       20000
+         2 maggi      lectural        25000
